@@ -1,0 +1,52 @@
+<include file="_header" />
+<h1>读入数据库</h1>
+<div class="list">
+<table  width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody boder="1">
+	<tr fontsize="12px">
+		<th class="line_l"></th>
+		<th class="line_l">A</th><th class="line_l">B</th><th class="line_l">C</th>
+		<th class="line_l">D</th><th class="line_l">E</th>
+		<th class="line_l">F</th><th class="line_l">G</th><th class="line_l">H</th>
+		<th class="line_l">I</th><th class="line_l">J</th>
+		<th class="line_l">K</th><th class="line_l">L</th><th class="line_l">M</th>
+		<th class="line_l">N</th><th class="line_l">O</th>
+	</tr>
+	<?php
+	$begin=$_POST['beginline'];
+	for ($i=$begin-1;$i<9+$begin;$i++){
+		
+		echo '<tr>';
+		echo "<th>".($i+1)."</th>";
+		for ($j=0;$j<15;$j++){
+		echo "<th class='line_l'>".$tabledata[$j][$i]."</th>";
+			//<!--input style='width:100%;size:20;' type='text' value=' '/-->
+		}
+		echo '</tr>';
+	}
+	//var_dump($tabledata);
+	?>
+
+</tbody>
+	
+</table>
+</div>
+<h1>{$_POST['type']}数据读取规则(不区分大小写)</h1>
+<form method="post" action="{:U('map/Adminmap/showdata')}">
+<table>
+	<tbody>
+	<tr><th></th><th>所属列</th></tr>
+			<?php foreach($contentlist as $key=>$value){
+				?>
+			<tr>
+				<th>{$key}</th>
+				<th><input type="text" maxlength="1" name="{$value}" /></th>
+				<?php } ?>
+			</tr>
+				
+	</tbody>
+</table>
+<input type="hidden" name="datatype" value="{$_POST['type']}" />
+<input type="submit" value="录入数据" />
+</form>
+<include file="_footer" />

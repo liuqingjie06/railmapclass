@@ -1,0 +1,91 @@
+<include file="_header" />
+
+<div class="Toolbar_inbox">
+	<div class="page left"></div>
+	<a>添加数据文件</a> 
+	<a>删除数据文件</a>
+	
+</div>
+<div class="list">
+<!--
+*用于选取基础数据文件
+*/-->
+<form method="post" action="{:U('map/Adminmap/readrule')}" >
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<th class="line_l" width="15px"></th>
+				<th class="line_l">ID</th>
+				<th class="line_l">文件名</th>
+				<th class="line_l">文件大小</th>
+				<th class="line_l">创建日期</th>
+				<th class="line_l">文档说明</th>
+			</tr>
+			<volist id="vo" name="data">
+      			<tr overstyle='on' id="{$vo.file_id}">
+      			<td><input type="radio" value="{$vo.file_id}" name="fileid"/>
+        		<td>{$vo.file_id}</td>
+        		<td>{$vo.filename}</td>
+        		<td>{$vo.filesize}</td>
+        		<td>{$vo.ctime|date="Y-m-d H:i",###}</td>
+        		<td>{$vo.note}</td>
+      			</tr>
+ 			 </volist>					
+		</tbody>
+	</table>
+</div>
+<div class="Toolbar_inbox">
+	<div class="page left"></div>
+    <p>选择要生成数据的文件</p>
+    <input type="submit" value="建立数据库" onclick="return checkRadio();"/>
+</div>
+</form>
+
+<div style="text-align:left; padding:5px" >
+<h1 style="padding:20px 0px 20px">读取线路数据</h1>
+<h2>step 1 上传您的数据文件</h2>
+<form method="post" action="{:U('map/Adminmap/uploaddata')}" enctype="multipart/form-data" onSubmit="return checkForm()">
+
+      <dl>
+          <dd>
+            <label>文件路径：</label>
+            <input name="uploadfile" type="file" id="file" /> 
+             <!--(仅支持：{$upload['allow_exts']} 最大上传文件：{$config['simpleFileSize']}M)  -->
+          </dd>
+          <dd style="height:auto;">
+              <label>文件注释：</label>
+              <textarea name="note" cols="50" rows="3"></textarea>
+          </dd>
+          <dd>
+              <input type="hidden" name="uploadsubmit" value="1">
+              <input name="submit" type="submit" class="btn_b" value="上 传"/>
+                      &nbsp;
+              <input name="reset" type="button" class="btn_w" value="取 消" /> 
+          </dd>
+     </dl>
+</form>
+
+</div>
+<?php
+//如果上传成功
+if($status){
+?>
+<h3>{$filename} 已上传成功</h3>
+<a href="{:U('map/Adminmap/writedata')}">建立数据库</a>
+<?php } ?>
+
+
+<script type="text/javascript">
+	//验证Radio有值
+	function checkRadio(){
+	var theCheckboxInputs=document.getElementsByName('fileid');
+	for(var i=0;i<theCheckboxInputs.length;i++)  {  
+   		if(theCheckboxInputs[i].checked)
+     	return true;
+	}
+	alert('您还没有选中文件');
+	return false;
+}
+
+</script>
+<include file="_footer" />

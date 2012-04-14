@@ -1,0 +1,81 @@
+<include file="__THEME__/header" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.form.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/weibo.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.autocomplete.js"></script>
+
+<script src="../Public/js/slides.min.jquery.js"></script>
+
+<div class="content_holder">
+  <div class="content no_bg">
+  <div class="wrap_index_r">
+  <include file="__THEME__/apps" />
+  {:Addons::hook('home_index_right_top')}
+      <div class="Box_content">
+        {:W('RelatedUser',array('async'=>1))}
+        <div class="right_box lineS_btm">
+          <h2><a href="javascript:void(0)" onclick="$('.quick_win').show()" class="right" style="font-weight:400;font-size:12px">添加</a>关注的话题</h2>
+          <dl style="display:none;" class="quick_win">
+          	<dt><em>◆</em><span>◆</span></dt>
+            <dd>
+            <a href="javascript:void(0)" onclick="$('.quick_win').hide()" class="del" title="关闭"></a>
+            <p>
+              <input type="text" class="text" name="quick_name" style=" width:130px;display:block;margin:0 0 5px 0"/>
+              <input type="button" onclick="addFollowTopic()" value="保存" class="btn_b" />
+            </p>
+            <p class="cGray2">请添加想关注的话题</p>
+            </dd>
+          </dl>
+          <ul class="topic_list" rel="followTopicArea">
+            <volist id="vo" name="followTopic">
+              <li onmouseover="$(this).find('.del').show()" onmouseout="$(this).find('.del').hide()"><a class="del right" style="display:none" title="删除" href="javascript:void(0)" onclick="deleteFollowTopic(this,'{$vo.topic_id}')"></a><a href="{:U('home/user/topics',array('k'=>urlencode($vo['name'])))}" title="{$vo.name}">{$vo.name}</a></li>
+            </volist>
+          </ul>
+        </div>
+        <div class="right_box">
+          {:W('HotTopic', array('type'=>'recommend','limit'=>5))}
+          {:W('HotTopic', array('type'=>'auto','limit'=>5))}
+          
+          
+      </div>
+          {:Addons::hook('home_index_right_bottom')}
+        <php>if (Addons::requireHooks('home_index_right_advert')) {</php>
+        	{:Addons::hook('home_index_right_advert', array($ts['ad']['right']))}
+        <php>} else {</php>
+			<volist name="ts['ad']['right']" id="vo">
+			<div class="ad_right"><div class="ke-post">{$vo.content}</div></div>
+			</volist>
+		<php>}</php>
+      </div>
+	</div>
+	<!--wrap_index_r end-->
+
+
+  </div>
+</div>
+<!-- 用@提到的人 end --> 
+<include file="__THEME__/footer" /> 
+<script>
+function close_announcement() {
+	$('#announcement').hide('slow');
+	$.post("{:U('home/User/closeAnnouncement')}",{},function(res){});
+}
+var weibo = $.weibo({
+      sinceId: parseInt('{$sinceId}'),
+      <php>if(ACTION_NAME=="index"){</php>
+      timeStep : 60000,
+      initForm:true,
+      <php>}</php>
+      lastId:parseInt('{$lastId}'),
+      show_feed:parseInt('{$show_feed}'),
+      follow_gid:parseInt('{$follow_gid}'),
+      gid:parseInt('{$gid}'),
+      weiboType:parseInt('{$type}'),
+      type:parseInt('{$indexType}'),
+      typeList:{
+          WEIBO:parseInt(<php>echo UserAction::INDEX_TYPE_WEIBO;</php>),
+          GROUP:parseInt(<php>echo UserAction::INDEX_TYPE_GROUP;</php>),
+          ALL:parseInt(<php>echo UserAction::INDEX_TYPE_ALL;</php>)
+      }
+});
+</script> 
+{:Addons::hook('weibo_js_plugin')}
