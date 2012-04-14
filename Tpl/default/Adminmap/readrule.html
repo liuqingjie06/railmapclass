@@ -12,8 +12,8 @@
 				<th class="line_l">状态</th>
 				<th class="line_l" width="120px"></th>
 			</tr>
-		<volist id="vo" key="k" name="datatype">
-		<form method="post" action="{:U('map/Adminmap/writedata')}" target="_blank">
+		<volist id="vo" key="k" name="datatypename">
+		<form method="post" action="{:U('map/Adminmap/preview')}" target="_blank">
 			<tr>
 				<th class="line_l">{$vo}</th>
 				<th class="line_l"><input type="text" name="sheetname" id="sheetname{$k}" /></th>
@@ -38,8 +38,33 @@
 	</table>
 </div>
 
-
-
+<div style="width:100%;height:15px"></div>
+<!-- 操作读取规则 -->
+<div class="list">
+<table width="100%" border="1">
+	<tbdody>
+	<tr>
+		<php>
+			foreach($datatype as $key=>$value){
+		</php>	 
+		<th style="width:100px;vertical-align:top">
+			<div style="margin-top:5px">
+			<h3>{$key}</h3>
+			<php>
+				foreach($value as $k=>$v){
+			</php>
+				{$k}<input type="text" maxlength="1" name="{$v}" />
+			<php> } </php>	
+			<input type="submit" value="提交"  />
+			<p><strong>状态</strong>完成  未完成</p>
+			</div>		
+		</th>
+		<php>}</php>
+	</tr>
+	
+	</tbdody>
+</table>
+</div>
 
 <script type="text/javascript">
 	//验证Radio有值

@@ -132,11 +132,12 @@ class AdminmapAction extends BaseAction {
 		foreach($this->_datatype as $key=>$value){
 			$datatype[]=$key;
 		}
-		$data['datatype']=$datatype;
+		$data['datatypename']=$datatype;
 		$this->assign($data);
-		
+
 		$dir= SITE_DATA_PATH.'\\uploads\\'.$filedir;
 		$dir=str_replace("/", "\\", $dir);
+		$this->assign('datatype',$this->_datatype);
 		$this->assign('filedir',$dir);
 		
 		$this->display();
@@ -145,7 +146,7 @@ class AdminmapAction extends BaseAction {
 
 	}
 	
-	public function writedata(){
+	public function preview(){
 		/*
 		 * TODO 在页面中列出表的结构，匹配数据库与excel表格
 		 */
