@@ -1,7 +1,6 @@
 <?php
 class MapdirModel extends Model {
-	var $tableName = 'map_basemapdata';
-
+	var $tableName = 'map_basefile';
 
 	//删除文件
 	function delfile($id) {
@@ -15,8 +14,8 @@ class MapdirModel extends Model {
 
 	//获取文件
 	/**
-	 * getGroupList
-
+	 *
+	 * 
 	 */
 	public function getFileList($html=1,$map = null,$fields=null,$order = null,$limit = null,$isDel=0) {
 		//处理where条件

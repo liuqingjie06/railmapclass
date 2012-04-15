@@ -74,11 +74,12 @@ class AdminmapAction extends BaseAction {
 			}
 			//设置上传参数上传参数
 			$upload['max_size']   = 2*1024*1024;//$this->config['simpleFileSize']*1024*1024;
-			$upload['allow_exts']=array('xls','xlsx');
+			$upload['allow_exts']=array('xls','xlsx','CSV','html');
 			//上传类型名为basemap_data的附件
-			$info = X('Xattach')->upload('basemap_data',$upload);
+			$info = X('Xattach')->upload('map_file',$upload);
 			if($info['status']){  //上传成功
 				list($uploadFileInfo) = $info['info'];
+			
 				$attchement['name'] = $uploadFileInfo['name'];
 				$attchement['note'] = !empty($_POST['note']) ? t($_POST['note']) : '';
 				$attchement['filesize'] = $uploadFileInfo['size'];
@@ -89,12 +90,12 @@ class AdminmapAction extends BaseAction {
 				if ($_GET['ajax'] == 1) {
 					$attchement['is_del'] = 1; // 异步上传的文件默认为删除状态，等异步信息保存时候再设定为非删除
 				}
-				$result = $this->dir->add($attchement);
+				
+
+				$result =$this->dir->add($attchement);
+
 				//如果上传成功提示下一步
 				
-				
-				
-				$this->assign('status','1');
 				$this->assign('filename',$attchement['name']);
 				$this->assign('id',$attchement['attachId']);
 			
@@ -109,8 +110,8 @@ class AdminmapAction extends BaseAction {
 		
 		//列出数据文件的信息
 		$limit = 20; //每页显示数据数
-		$mapmodel=M('MapBasemapdata');
-		$data = $mapmodel->order('id')->findPage($limit);
+		
+		$data = $this->dir->order('id')->findPage($limit);
 		$this->assign($this->__formatMap('basemap', $data));
 		
 		$this->assign('upload',$upload);
@@ -127,7 +128,7 @@ class AdminmapAction extends BaseAction {
 		 */
 
 		
-		$filedir=M('MapBasemapdata')->where("id=".$_POST['fileid'])->getField('fileurl');
+		$filedir=$this->dir->where("id=".$_POST['fileid'])->getField('fileurl');
 		$datatype=array();
 		foreach($this->_datatype as $key=>$value){
 			$datatype[]=$key;
@@ -161,9 +162,7 @@ class AdminmapAction extends BaseAction {
 		
 		//echo $filename.$sheetname;
 		$objReader=PHPExcel_IOFactory::createReaderForFile($filename);
-
-		$objReader->setLoadSheetsOnly(array($sheetname));
-	
+		$objReader->setLoadSheetsOnly(array($sheetname));	
 		$objPHPExcel=$objReader->load($filename);
 		for ($i=0;$i<15;$i++){
 		for ($j=0;$j<15;$j++){
@@ -172,9 +171,8 @@ class AdminmapAction extends BaseAction {
 		}
 		$this->assign('tabledata',$tabledata);
 		//数据读取规则
-		$contentlist=$this->_datatype[$_POST['type']];  //读入数据表内容
-		
-		$this->assign('contentlist',$contentlist);
+		//$contentlist=$this->_datatype[$_POST['type']];  //读入数据表内容		
+		//$this->assign('contentlist',$contentlist);
 		//数据库表名		
 
 		$this->display();

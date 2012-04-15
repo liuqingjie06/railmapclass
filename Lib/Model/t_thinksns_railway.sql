@@ -16,12 +16,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-#  建立地图底图数据表
-# Dump of table ts_map_Basemapdata
+#  建立地图底图数据表,该表存储的是上传的数据文档
+# Dump of table ts_map_file
 # ------------------------------------------------------------;
-DROP TABLE IF EXISTS  `ts_map_Basemapdata` ;
-CREATE TABLE  `ts_map_Basemapdata`  (
-   `id` int(11)  unsigned NOT NULL AUTO_INCREMENT,
+
+DROP TABLE IF EXISTS  `ts_map_basefile` ;
+CREATE TABLE  `ts_map_basefile`  (
+    `id` int(11)  unsigned NOT NULL AUTO_INCREMENT,
     `name` varchar(32) NOT NULL,
     `note` text NOT NULL,
     `filesize` int(10) NOT NULL DEFAULT '0',  

@@ -8,7 +8,7 @@
 			<tr>
 				<th class="line_l">数据类型</th>
 				<th class="line_l">表名（sheet name）</th>
-				<th class="line_l">数据起始行</th>
+				<!--  th class="line_l">数据起始行</th-->
 				<th class="line_l">状态</th>
 				<th class="line_l" width="120px"></th>
 			</tr>
@@ -17,15 +17,7 @@
 			<tr>
 				<th class="line_l">{$vo}</th>
 				<th class="line_l"><input type="text" name="sheetname" id="sheetname{$k}" /></th>
-				<th class="line_l">
-					<select name="beginline" >
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
-				</th>
+				
 				<th class="line_l">未定义</th>
 				<th class="line_l"><input type="submit" value="预览数据" onclick="return checkInput({$k});"/></th>
 			</tr>
@@ -44,12 +36,22 @@
 <table width="100%" border="1">
 	<tbdody>
 	<tr>
+		
 		<php>
 			foreach($datatype as $key=>$value){
 		</php>	 
 		<th style="width:100px;vertical-align:top">
 			<div style="margin-top:5px">
 			<h3>{$key}</h3>
+			<h>起始行<select name="beginline" >
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+				</select>
+			</h>
 			<php>
 				foreach($value as $k=>$v){
 			</php>
