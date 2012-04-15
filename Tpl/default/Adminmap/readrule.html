@@ -39,11 +39,14 @@
 		
 		<php>
 			foreach($datatype as $key=>$value){
-		</php>	 
+		</php>	
+		<form method="post" action="{:U('map/Adminmap/test')}" > 
 		<th style="width:100px;vertical-align:top">
 			<div style="margin-top:5px">
 			<h3>{$key}</h3>
-			<h>起始行<select name="beginline" >
+			<p>表名</p><input type="text" name="sheetname{$key}" id="{$key}" />
+			          <input type="button" value="预览数据" onclick="return checkInput({$key});"/>
+			<p>起始行</p><select name="beginline" >
 						<option>1</option>
 						<option>2</option>
 						<option>3</option>
@@ -58,6 +61,8 @@
 				{$k}<input type="text" maxlength="1" name="{$v}" />
 			<php> } </php>	
 			<input type="submit" value="提交"  />
+			<input type="hidden" value=""   />
+			</form> 
 			<p><strong>状态</strong>完成  未完成</p>
 			</div>		
 		</th>
@@ -71,8 +76,8 @@
 <script type="text/javascript">
 	//验证Radio有值
 	
-	function checkInput(i){
-		var name='sheetname'+i.toString();
+	function checkInput(value){
+		var name=value.toString;
         //alert('hello world');
 		var theCheckInput=document.getElementById(name);
 		//alert(theCheckInput); 
