@@ -17,7 +17,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 #  建立地图底图数据表,该表存储的是上传的数据文档
-# Dump of table ts_map_file
+# Dump of table ts_map_basefile
 # ------------------------------------------------------------;
 
 DROP TABLE IF EXISTS  `ts_map_basefile` ;
@@ -33,6 +33,25 @@ CREATE TABLE  `ts_map_basefile`  (
     `status` tinyint(1) NOT NULL DEFAULT '0',
     `is_del` tinyint(1) NOT NULL DEFAULT '0',  
     `attachId` int(11) unsigned NOT NULL,   
+   PRIMARY KEY ( `id` )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
+
+#  建立地图底图数据表,该表存储的是上传的数据文档
+# Dump of table ts_map_basedata
+# ------------------------------------------------------------;
+
+DROP TABLE IF EXISTS  `ts_map_basedata` ;
+CREATE TABLE  `ts_map_basedata`  (
+    `id` int(11)  unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(32) NOT NULL,
+    `note` text NOT NULL,
+    `Admin_id`  smallint NOT NULL,
+    `Line_id`  int(11) NOT NULL,
+    `startmileage` double NOT NULL,
+    `stopmileage` double NOT NULL,
+    `ctime` int(11) NOT NULL,
+    `status` tinyint(1) NOT NULL DEFAULT '0',
+    `is_del` tinyint(1) NOT NULL DEFAULT '0',  
    PRIMARY KEY ( `id` )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
 
