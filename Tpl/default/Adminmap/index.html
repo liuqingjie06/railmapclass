@@ -1,2 +1,11 @@
 <h1>test!</h1>
 <h2>git from github</h2>
+<?php
+$str = 'K131+100';
+$chars = preg_split('/K/', $str, -1, PREG_SPLIT_OFFSET_CAPTURE);
+$char2=  preg_split('/\+/', $chars[1][0], 2, PREG_SPLIT_OFFSET_CAPTURE);
+Dump($char2);
+Dump($chars[1][0]);
+echo $chars[1][0];
+echo (double)$chars[1][0]*1000+(double)$char2[1][0];
+?>

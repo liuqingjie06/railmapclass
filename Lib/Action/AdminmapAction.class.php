@@ -122,11 +122,17 @@ class AdminmapAction extends BaseAction {
 	
 	public function readrule(){
 		/*
-		 * TODO 建立数据读取规则 
+		 * TODO 建立数据读取规则,并想数据库中写入数据  
 		 * @author liuqingjie06@yahoo.com.cn
 		 * @create 2012.4.14 20:49
 		 */
-
+		//从附件中建立数据库文件
+		Dump($_POST);
+		
+		$mapbasedata=D('BaseData');
+		$result=$mapbasedata->add($_POST);
+		echo $result;
+		echo $mapbasedata->getLastsql();
 		
 		$filedir=$this->dir->where("id=".$_POST['fileid'])->getField('fileurl');
 		$datatype=array();

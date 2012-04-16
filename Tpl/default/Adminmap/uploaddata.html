@@ -26,7 +26,8 @@
       			<td><input type="radio" value="{$vo.file_id}" name="fileid"/>
         		<td>{$vo.file_id}</td>
         		<td>{$vo.filename}</td>
-        		<td>{$vo.filesize}</td>
+        		<php>$vo['filesize'] = round($vo['filesize']/1000,2);</php>
+        		<td>{$vo.filesize}K</td>
         		<td>{$vo.ctime|date="Y-m-d H:i",###}</td>
         		<td>{$vo.note}</td>
       			</tr>
@@ -37,6 +38,18 @@
 <div class="Toolbar_inbox">
 	<div class="page left"></div>
     <p>选择要生成数据的文件</p>
+    <lu>
+   <li> <label>线路名称</label><input type="text" name="linename" />
+ 	</li><li>  
+    <label>线路编号</label><input type="text" name="Line_id"  />
+    </li><li>  
+    <label>起始里程</label><input type="text" name="startmileage" />
+    </li><li>  
+    <label>终点里程</label><input type="text" name="stopmileage" />
+    </li><li>  
+    <label>描述</label><textarea  cols="50" rows="3" name="note" /></textarea>
+    </li>
+    </lu>
     <input type="submit" value="建立数据库" onclick="return checkRadio();"/>
 </div>
 </form>

@@ -43,14 +43,17 @@ CREATE TABLE  `ts_map_basefile`  (
 DROP TABLE IF EXISTS  `ts_map_basedata` ;
 CREATE TABLE  `ts_map_basedata`  (
     `id` int(11)  unsigned NOT NULL AUTO_INCREMENT,
-    `name` varchar(32) NOT NULL,
+    `linename` varchar(32) NOT NULL,
     `note` text NOT NULL,
-    `Admin_id`  smallint NOT NULL,
-    `Line_id`  int(11) NOT NULL,
+    `Line_id`  int NOT NULL,
     `startmileage` double NOT NULL,
     `stopmileage` double NOT NULL,
     `ctime` int(11) NOT NULL,
-    `status` tinyint(1) NOT NULL DEFAULT '0',
+    `bridgestatus` tinyint(1) NOT NULL DEFAULT '0',
+    `tunnelstatus` tinyint(1) NOT NULL DEFAULT '0',
+    `curvestatus` tinyint(1) NOT NULL DEFAULT '0',
+    `stationstatus` tinyint(1) NOT NULL DEFAULT '0',
+    `slopestatus` tinyint(1) NOT NULL DEFAULT '0',
     `is_del` tinyint(1) NOT NULL DEFAULT '0',  
    PRIMARY KEY ( `id` )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;  
