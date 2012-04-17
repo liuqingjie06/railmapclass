@@ -122,18 +122,17 @@ class AdminmapAction extends BaseAction {
 	
 	public function readrule(){
 		/*
-		 * TODO 建立数据读取规则,并想数据库中写入数据  
+		 * TODO 建立数据读取规则,并想数据库中写入数据  创建百米标数据
 		 * @author liuqingjie06@yahoo.com.cn
 		 * @create 2012.4.14 20:49
 		 */
 		//从附件中建立数据库文件
-		Dump($_POST);
 		
 		$mapbasedata=D('BaseData');
 		$result=$mapbasedata->add($_POST);
-		echo $result;
-		echo $mapbasedata->getLastsql();
 		
+		echo $mapbasedata->getLastsql();
+		echo $result;
 		$filedir=$this->dir->where("id=".$_POST['fileid'])->getField('fileurl');
 		$datatype=array();
 		foreach($this->_datatype as $key=>$value){
@@ -149,6 +148,13 @@ class AdminmapAction extends BaseAction {
 		
 		$this->display();
 		
+		$mileage=M('MapMileage');
+		$start=$mapbasedata->where("id=".$result)->getField('startmileage');
+		$stop=$mapbasedata->where("id=".$result)->getField('stopmileage');
+		$lineid=$mapbasedata->where("id=".$result)->getField('Line_id');
+		echo 'lineid='.$lineid.'</br>';
+		$this->_createMileage($result,$start,$stop,$lineid);
+		echo $start."起点".$stop."终点";
 		
 
 	}

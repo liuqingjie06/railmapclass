@@ -138,6 +138,36 @@ class BaseAction extends Action
 		
 		return $map;
 	}
+	
+	
+	protected function _createMileage($dataid,$start,$stop,$lineid){
+		/*
+		 * TODO 通过基础数据创建 百米标的数据文件
+		 */
+		if($start>=$stop){
+			throw "起始里程小于等于终点里程";
+			return FALSE;
+		}
+		
+		$pointnum=floor(($stop-$start)/200);
+		Dump($pointnum);
+		
+		$poi=M('MapPoi');
+		$hundred=M('MapRailwayhundred');
+		//创建POI点 对应百米标
+		$data=array();
+		$poidata=array('status'=>'0','name'=>'Hundred2');
+		for($i=0;$i<$pointnum;$i++){
+			$id=$poi->add($poidata);
+			$data['POI_id']=$id;
+			$data['mileage']=$start+$i*200-100;
+			$data['Data_id']=$dataid;
+			$data['Line_id']=$lineid;
+			$hundred->add($data);
+			//Dump($data);
+		}
+		
+	}
 }
 
 

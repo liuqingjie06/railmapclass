@@ -108,12 +108,12 @@ CREATE TABLE  `ts_map_POI`  (
 DROP TABLE IF EXISTS  `ts_map_railwayHundred`  ;
 CREATE TABLE  `ts_map_railwayHundred`  (
    `id`  int NOT NULL AUTO_INCREMENT,
-   `tunnelname`  varchar(255) NOT NULL,
    `mileage`  float NOT NULL,
    `POI_id`  int NOT NULL,
-   `Admin_id`  smallint NOT NULL,
+   `Data_id`  smallint NOT NULL,
+   `Admin_id`  smallint NOT NULL DEFAULT '0',
    `Line_id`  int(11) NOT NULL,
-   `lid`  smallint NOT NULL,
+  # `lid`  smallint NOT NULL,
   PRIMARY KEY ( `id` ),
   FOREIGN KEY ( `POI_id` ) references  `ts_map_POI`  ( `id` ),
   FOREIGN KEY ( `Admin_id` ) references  ts_map_railwayAdmin  ( `id` ),
