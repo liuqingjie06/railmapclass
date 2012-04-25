@@ -39,6 +39,6 @@
 				  $newnode->setAttribute("type", $row['type']);
 				}
 
-	            // echo $doc->saveXML();
+	             echo $doc->saveXML();
 
 ?>
